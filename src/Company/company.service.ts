@@ -17,4 +17,8 @@ export class CompanyService {
   findOne(id: string): Promise<Company> {
     return this.companyRepository.findOne(id);
   }
+
+  create(data: Company): Promise<Company> {
+    return this.companyRepository.save(data);
+  }
 }

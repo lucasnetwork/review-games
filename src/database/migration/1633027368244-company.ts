@@ -11,6 +11,14 @@ export class company1633027368244 implements MigrationInterface {
             type: 'int',
             isPrimary: true,
           },
+          {
+            name: 'description',
+            type: 'varchar',
+          },
+          {
+            name: 'file_url',
+            type: 'varchar',
+          },
         ],
       }),
     );
