@@ -38,7 +38,7 @@ export class UserController {
         Number(process.env.saltRound),
       );
       values.password = hashPassword;
-      const response = await this.userService.create(data);
+      await this.userService.create(data);
       return res.status(HttpStatus.CREATED).json();
     } catch (e) {
       console.log(e);
