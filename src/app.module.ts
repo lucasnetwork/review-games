@@ -5,9 +5,11 @@ import { AppService } from './app.service';
 import { Company } from './database/Entities/Company';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompanyModules } from './Company/company.module';
+import { UserController } from './User/user.controller';
+import { UserModules } from './User/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), CompanyModules],
+  imports: [TypeOrmModule.forRoot(), CompanyModules, UserModules],
   controllers: [AppController, GameController],
   providers: [AppService],
 })

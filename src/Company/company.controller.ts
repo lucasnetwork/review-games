@@ -17,7 +17,6 @@ export class CompanyController {
   @Get()
   async findAll(): Promise<Array<Company>> {
     const companys = await this.companyService.findAll();
-    console.log(companys);
     return companys;
   }
   @Get(':id')
