@@ -1,15 +1,19 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
+  Request,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { User } from 'src/database/Entities/User';
 import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -45,6 +49,29 @@ export class UserController {
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .json({ error: 'server error' });
+    }
+  }
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async getProfile(@Request() req, @Res() res: Response) {
+    try {
+      const existUser = await this.userService.findOneByEmail(
+        req.user.userName,
+      );
+      if (!existUser) {
+        return res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ error: 'User not exist' });
+      }
+      const user = {
+        email: existUser.email,
+        name: existUser.name,
+        id: existUser.id,
+      };
+
+      return res.json(user);
+    } catch {
+      return 'user';
     }
   }
 }
