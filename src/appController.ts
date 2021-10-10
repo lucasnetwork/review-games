@@ -1,5 +1,4 @@
-import { Get, Controller, StreamableFile, Res, Param } from '@nestjs/common';
-import { createReadStream } from 'fs';
+import { Get, Controller, Res, Param } from '@nestjs/common';
 import { join } from 'path';
 
 @Controller()
