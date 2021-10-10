@@ -6,7 +6,7 @@
    "entities": [
       "dist/database/Entities/*{.ts,.js}"
    ],
-   "migrations": ["dist/database/migrations/*{.ts,.js}"],
+   "migrations": ["dist/database/migration/*{.ts,.js}"],
    "subscribers": [
       "dist/database/subscriber/**/*.ts"
    ],
