@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Game } from './Game';
 
 @Entity()
 export class Company {
@@ -13,4 +14,7 @@ export class Company {
 
   @Column()
   file_url: string;
+
+  @OneToMany(() => Game, (game) => game.company)
+  games: Game;
 }

@@ -26,6 +26,7 @@ export class game1633892337549 implements MigrationInterface {
           {
             name: 'companyId',
             type: 'int',
+            isUnique: false,
           },
         ],
         foreignKeys: [

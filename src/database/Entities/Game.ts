@@ -4,6 +4,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Company } from './Company';
 
@@ -21,7 +22,6 @@ export class Game {
   @Column()
   file_url: string;
 
-  @OneToOne(() => Company)
-  @JoinColumn()
+  @ManyToOne(() => Company, (company) => company.games)
   company: Company;
 }
