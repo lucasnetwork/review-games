@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GameController } from 'src/Game/game.controller';
 import { Game } from 'src/database/Entities/Game';
 import { GameService } from './game.service';
-import { MulterModuleCustom } from 'src/Multer/multer.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
