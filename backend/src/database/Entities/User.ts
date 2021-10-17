@@ -3,9 +3,9 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
-  BeforeInsert,
-  BeforeUpdate,
+  OneToMany,
 } from 'typeorm';
+import { Review } from './Review';
 
 @Entity()
 export class User extends BaseEntity {
@@ -20,4 +20,7 @@ export class User extends BaseEntity {
 
   @Column()
   email: string;
+
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review;
 }
