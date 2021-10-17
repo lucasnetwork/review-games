@@ -6,6 +6,7 @@ import { UserModules } from './User/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './appController';
 import { GameModules } from './Game/game.module';
+import { ReviewModules } from './Review/review.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { GameModules } from './Game/game.module';
     AuthModule,
     UserModules,
     GameModules,
+    ReviewModules,
   ],
   controllers: [AppController],
   providers: [AppService],

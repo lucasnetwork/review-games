@@ -11,11 +11,13 @@ export class GameService {
   ) {}
 
   findAll(): Promise<Game[]> {
-    return this.gameRepository.find({ relations: ['company'] });
+    return this.gameRepository.find({ relations: ['company', 'reviews'] });
   }
 
   findOne(id: string): Promise<Game> {
-    return this.gameRepository.findOne(id);
+    return this.gameRepository.findOne(id, {
+      relations: ['company', 'reviews'],
+    });
   }
 
   create(data: Game): Promise<Game> {
