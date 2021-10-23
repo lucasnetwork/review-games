@@ -16,6 +16,15 @@ export class ReviewController {
   @Post()
   async create(@Body() data: Review, @Res() res: Response) {
     try {
+      const existReviewUsertAndGame = await this.reviewService.getByUserAndGame(
+        Number(data.game),
+        Number(data.user),
+      );
+      if (existReviewUsertAndGame) {
+        return res
+          .status(HttpStatus.BAD_REQUEST)
+          .json({ error: 'review already exist' });
+      }
       const response = await this.reviewService.create(data);
       return res.status(HttpStatus.CREATED).json(response);
     } catch {

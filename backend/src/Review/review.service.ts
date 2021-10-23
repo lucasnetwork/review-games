@@ -16,4 +16,8 @@ export class ReviewService {
   findAll(): Promise<Review[]> {
     return this.reviewRepository.find({ relations: ['game', 'user'] });
   }
+
+  getByUserAndGame(user: number, game: number) {
+    return this.reviewRepository.findOne({ where: { user, game } });
+  }
 }
