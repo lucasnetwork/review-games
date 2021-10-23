@@ -28,5 +28,5 @@ export class Game {
   company: Company;
 
   @OneToMany(() => Review, (review) => review.game)
-  reviews: Review;
+  reviews: Review[];
 }

@@ -22,5 +22,5 @@ export class User extends BaseEntity {
   email: string;
 
   @OneToMany(() => Review, (review) => review.user)
-  reviews: Review;
+  reviews: Review[];
 }
