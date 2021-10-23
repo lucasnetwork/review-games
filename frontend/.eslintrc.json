@@ -1,3 +1,53 @@
 {
-  "extends": "next/core-web-vitals"
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": ["plugin:react/recommended", "airbnb", "prettier", "next/core-web-vitals"],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"plugins": ["react", "prettier"],
+	"rules": {
+		"react/forbid-prop-types": "off",
+		"prettier/prettier": ["error", { "endOfLine": "auto" }],
+		"react/react-in-jsx-scope": "off",
+		"no-tabs": "off",
+		"react/prop-types": "off",
+		"quotes": [2, "single", { "avoidEscape": true }],
+		"jsx-a11y/label-has-associated-control": "off",
+		"no-unused-vars": 1,
+		"consistent-return": "off",
+		"react/jsx-props-no-spreading": "off",
+		"jsx-a11y/click-events-have-key-events": "off",
+		"jsx-a11y/no-static-element-interactions": "off",
+		"jsx-a11y/no-noninteractive-tabindex": "off",
+		"no-param-reassign": "off",
+		"no-underscore-dangle": "off",
+		"no-empty": "off",
+		"jsx-a11y/media-has-caption": "off",
+		"import/order": [
+			"error",
+			{
+				"groups": [
+					"external",
+					"index",
+					"builtin",
+					"sibling",
+					"parent",
+					"internal",
+					"unknown"
+				],
+				"newlines-between": "always",
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				}
+			}
+		]
+	}
 }
