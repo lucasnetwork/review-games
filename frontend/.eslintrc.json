@@ -30,6 +30,8 @@
 		"no-underscore-dangle": "off",
 		"no-empty": "off",
 		"jsx-a11y/media-has-caption": "off",
+		"quotes":"off",
+		"react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
 		"import/order": [
 			"error",
 			{
