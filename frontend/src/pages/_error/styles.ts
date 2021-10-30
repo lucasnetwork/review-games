@@ -7,6 +7,7 @@ export default styled.div`
 export const Main = styled.main`
   grid-column: span 12;
   padding-top: 9.56rem;
+  background-color: ${({ theme }) => theme.background.primary};
 `;
 
 export const ImageContainer = styled.div`
