@@ -1,9 +1,11 @@
+import Link from 'next/link';
+
 import Container from './styles';
 
 const Header = () => (
   <Container>
     <h1>Review Games</h1>
-    <button type="button">Login</button>
+    <Link href="/login">Login</Link>
   </Container>
 );
 

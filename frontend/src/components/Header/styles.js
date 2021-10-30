@@ -15,7 +15,7 @@ export default styled.header`
     font-weight: 400;
   }
 
-  button {
+  a {
     color: ${({ theme }) => theme.text.primary};
     background: none;
     border: none;
