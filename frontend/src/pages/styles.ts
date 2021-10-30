@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default styled.div`
   min-height: 100vh;
@@ -13,7 +13,16 @@ export const ContainerType = styled.div`
   grid-column-start: 2;
   grid-column-end: 13;
   display: flex;
+  flex-direction: column;
   column-gap: 20px;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    color: #eadeda;
+    margin-bottom: 2rem;
+  }
 
   .item {
     height: 323px;
