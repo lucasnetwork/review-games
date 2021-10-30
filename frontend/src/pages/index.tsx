@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import Carrousel from 'nuka-carousel';
 
 import { Main, ContainerType } from './styles';
@@ -34,7 +35,9 @@ const Home: NextPage = () => (
           }}
         >
           <div className="item-container">
-            <div className="item" />
+            <Link href="/games/1">
+              <div className="item" />
+            </Link>
             <div className="item" />
           </div>
           <div className="item-container">

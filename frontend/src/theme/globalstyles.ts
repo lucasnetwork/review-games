@@ -22,4 +22,5 @@ export const ContainerMain = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 20px;
+  flex: 1;
 `;

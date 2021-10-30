@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 export default styled.div`
   min-height: 100vh;
+  display: flex;
+  background-color: ${({ theme }) => theme.background.primary};
 `;
 
 export const Main = styled.main`
   grid-column: span 12;
-  background-color: ${({ theme }) => theme.background.primary};
 `;
 
 export const ContainerType = styled.div`
