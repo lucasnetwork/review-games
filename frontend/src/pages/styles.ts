@@ -29,6 +29,12 @@ export const ContainerType = styled.div`
     height: 323px;
     width: 219px;
     background-color: #fff;
+    border: 2px solid #eadeda;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   .item-container {
     display: flex;
