@@ -6,8 +6,9 @@ import Input from '../../components/Form/Input';
 const Login = () => (
   <Container>
     <h1>Login</h1>
-    <Input labelValue="Email" />
-    <Input labelValue="Senha" container={{ className: 'margin' }} />
+    <Input labelValue="Nome" />
+    <Input labelValue="Email" container={{ className: 'margin' }} />
+    <Input labelValue="Senha" />
     <Button className="button">Login</Button>
   </Container>
 );

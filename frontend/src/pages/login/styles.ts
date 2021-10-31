@@ -23,5 +23,6 @@ export default styled.div`
 
   .margin {
     margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 `;

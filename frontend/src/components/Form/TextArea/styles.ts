@@ -3,17 +3,29 @@ import styled, { css } from 'styled-components';
 export default styled.div<{ active: boolean }>`
   position: relative;
   width: 100%;
-  height: 3rem;
+  height: 100%;
+  min-height: 3rem;
 
-  input {
+  textarea {
     height: 100%;
     width: 100%;
+    min-height: 3rem;
     border: 1px solid #d90368;
     border-radius: 8px;
     background: none;
-    font-size: 1rem;
+    resize: none;
     padding-left: 0.8rem;
+    padding-top: 0.8rem;
     color: #eadeda;
+    font-size: 1rem;
+  }
+
+  .maxNumber {
+    color: ${({ theme }) => theme.text.primary};
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.7rem;
   }
 
   label {
