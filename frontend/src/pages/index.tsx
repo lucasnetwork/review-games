@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { NextPage } from 'next';
+import type { NextPage,GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -146,7 +146,7 @@ const Home: NextPage<{
   );
 };
 
-Home.getInitialProps = async () => {
+export const getStaticProps:GetStaticProps = async () => {
   let newGames:Array<gamesProps> =[] 
   let newCompanies:Array<companyProps> =[] 
   try{
@@ -156,9 +156,10 @@ Home.getInitialProps = async () => {
       file_url:`${process.env.REACT_APP_URL}/${game.file_url}`
     }))
   
-  }catch{
+  }catch(e){
+    console.log(e)
     return {
-      
+      props:{}
     }
   }
 
@@ -170,12 +171,16 @@ Home.getInitialProps = async () => {
     }))
   
     return {
+      props:{
       gamesProps:newGames, 
       companyProps:newCompanies
+      }
     };
   }catch{
     return {
-      gamesProps:newGames
+      props:{
+        gamesProps:newGames
+      }
     }
   }
 };
