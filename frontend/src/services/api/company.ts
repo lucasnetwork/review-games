@@ -8,7 +8,14 @@ interface companiesProps {
   alt: string;
 }
 
-interface companyProp extends companiesProps {}
+interface companyProp extends companiesProps {
+  games: Array<{
+    id: number;
+    name: string;
+    description: string;
+    file_url: string;
+  }>;
+}
 
 export const findAllCompanies = () => api.get<Array<companiesProps>>('company');
 

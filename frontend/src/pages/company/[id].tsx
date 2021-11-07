@@ -1,6 +1,7 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import Carrousel from 'nuka-carousel';
 
 import {
@@ -11,9 +12,26 @@ import {
   Item,
 } from './styles';
 
+import { findCompany } from '../../services/api/company';
 import { ContainerMain } from '../../theme/globalstyles';
 
-const Company: NextPage = () => (
+interface companyProps {
+  id: number;
+  name: string;
+  description: string;
+  file_url: string;
+  alt: string;
+  games: Array<{
+    id: number;
+    name: string;
+    description: string;
+    file_url: string;
+  }>;
+}
+
+const Company: NextPage<{
+  company: companyProps;
+}> = ({ company }) => (
   <Main>
     <Head>
       <title>Create Next App</title>
@@ -22,65 +40,67 @@ const Company: NextPage = () => (
     </Head>
     <ContainerMain>
       <ImageContainer>
-        <img
-          alt="32"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-        />
+        <img alt="32" src={company.file_url} />
       </ImageContainer>
       <ContainerDescription>
         <div>
           <h2>Nome</h2>
-          <p>Nome</p>
-        </div>
-        <div>
-          <h2>Descrição</h2>
-          <p>Descrição</p>
-        </div>
-        <div>
-          <h2>Avaliação</h2>
-          <p>Avaliação</p>
+          <p>{company.name}</p>
         </div>
       </ContainerDescription>
       <DescriptionContainer>
         <h2>Descrição</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper
-          placerat enim in pretium. Nullam malesuada finibus lacus nec commodo.
-          Phasellus a felis suscipit, pellentesque nisl at, vestibulum purus.
-          Donec et ultrices urna. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Sed in accumsan turpis. Sed eget pharetra metus,
-          accumsan posuere odio. Vivamus eleifend felis eu leo semper vulputate.
-          Donec faucibus laoreet vulputate. Duis interdum efficitur efficitur.
-          Nulla eget tortor felis. Sed quis nibh at mi consequat sodales at ut
-          eros. Vestibulum laoreet fringilla mauris, nec interdum nibh convallis
-          ac.
-        </p>
+        <p>{company.description}</p>
       </DescriptionContainer>
       <DescriptionContainer>
         <h2>Jogos</h2>
-        <Carrousel slidesToShow={5} cellSpacing={20}>
-          <Item>
-            <img
-              alt="32"
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-            />
-          </Item>
-          <Item>
-            <img
-              alt="32"
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-            />
-          </Item>
-          <Item>
-            <img
-              alt="32"
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-            />
-          </Item>
+        <Carrousel
+          slidesToShow={5}
+          cellSpacing={20}
+          defaultControlsConfig={{
+            nextButtonStyle: {
+              display: 'none',
+            },
+            prevButtonStyle: {
+              display: 'none',
+            },
+            pagingDotsStyle: {
+              display: 'none',
+            },
+          }}
+        >
+          {company.games.map((game) => (
+            <Link key={game.id} href={`/games/${game.id}`}>
+              <Item>
+                <img alt="32" src={game.file_url} />
+              </Item>
+            </Link>
+          ))}
         </Carrousel>
       </DescriptionContainer>
     </ContainerMain>
   </Main>
 );
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  try {
+    const company = await findCompany(params.id);
+    company.data.file_url = `${process.env.REACT_APP_URL}/${company.data.file_url}`;
+    const newGames = company.data.games.map((game) => ({
+      ...game,
+      file_url: `${process.env.REACT_APP_URL}/${game.file_url}`,
+    }));
+    company.data.games = newGames;
+    return {
+      props: {
+        company: company.data,
+      },
+    };
+  } catch {
+    return {
+      props: {},
+    };
+  }
+};
 
 export default Company;

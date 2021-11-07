@@ -29,7 +29,7 @@ interface gamesProps {
   reviewMed: number;
 }
 
-const Home: NextPage<{
+const Game: NextPage<{
   gameProps: gamesProps;
 }> = ({ gameProps }) => {
   const theme = useContext(ThemeContext);
@@ -147,4 +147,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 };
 
-export default Home;
+export default Game;
