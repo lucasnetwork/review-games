@@ -129,14 +129,14 @@ const Game: NextPage<{
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
-    const games = await findGame(params.id);
-    games.data.file_url = `${process.env.REACT_APP_URL}/${games.data.file_url}`;
-    games.data.company.file_url = `${process.env.REACT_APP_URL}/${games.data.company.file_url}`;
-    console.log(games);
+    const game = await findGame(params.id);
+    game.data.file_url = `${process.env.REACT_APP_URL}/${game.data.file_url}`;
+    game.data.company.file_url = `${process.env.REACT_APP_URL}/${game.data.company.file_url}`;
+    console.log(game);
 
     return {
       props: {
-        gameProps: games.data,
+        gameProps: game.data,
       },
     };
   } catch (e) {

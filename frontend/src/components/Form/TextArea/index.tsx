@@ -29,7 +29,9 @@ const Textarea: React.FC<InputProps> = ({
         onBlur={() => setFocus(false)}
       />
 
-      <span className="maxNumber">0/{maxValue}</span>
+      <span className="maxNumber">
+        {input?.value.length}/{maxValue}
+      </span>
     </Container>
   );
 };

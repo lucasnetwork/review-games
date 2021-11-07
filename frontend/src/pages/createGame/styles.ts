@@ -4,17 +4,34 @@ export default styled.div`
   min-height: 100vh;
 `;
 
-export const Main = styled.main`
+export const Main = styled.form`
   grid-column: span 12;
   padding-top: 2.56rem;
   padding-bottom: 2.56rem;
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled.div<{
+  existImage: boolean;
+}>`
   grid-column-start: 2;
   grid-column-end: 6;
   height: 43.4rem;
   border: 4px solid #eadeda;
+  padding: ${({ existImage }) => (existImage ? '0' : '1rem')};
+  cursor: pointer;
+
+  div {
+    border: 1rem dashed #eee;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 1rem;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.text.primary};
+  }
 
   img {
     width: 100%;
@@ -42,7 +59,7 @@ export const ContainerDescription = styled.div`
   }
 
   .height {
-    height: 35rem;
+    height: 29rem;
   }
 `;
 
