@@ -1,3 +1,4 @@
+import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -7,48 +8,55 @@ import { useState, useEffect } from 'react';
 
 import { Main, ContainerType } from './styles';
 
-import gamesJson from '../games.json';
+import api from '../services/api';
 import { ContainerMain } from '../theme/globalstyles';
+import ajustItems from '../utils/ajustItems';
 
-const Home: NextPage = () => {
-  const [games, setGames] = useState<
-    Array<
-      Array<{
-        id: number;
-        name: string;
-        imageURL: string;
-        alt: string;
-      }>
-    >
-  >([]);
+interface gamesProps {
+  id: number;
+  name: string;
+  description: string;
+  file_url: string;
+}
+interface companyProps {
+  id: number;
+  name: string;
+  description: string;
+  file_url: string;
+  alt: string;
+}
+
+const Home: NextPage<{
+  gamesProps?: Array<gamesProps>;
+  companyProps?:Array<companyProps>
+}> = ({ gamesProps,companyProps }) => {
+  const [games, setGames] = useState([]);
+  const [data,setData] = useState<{
+    games:Array<Array<gamesProps>>,
+    companies:Array<Array<companyProps>>
+  }>({
+    games:[],
+    companies:[]
+  })
 
   useEffect(() => {
-    const newGames = [];
-    const numberSlides = 6;
-    let currentColumn = 0;
-    const newArray = [];
-    gamesJson.forEach((game, index) => {
-      if (newArray[currentColumn] === undefined) {
-        newArray[currentColumn] = [];
-      }
-      newArray[currentColumn].push(game);
-      if (
-        currentColumn === numberSlides - 1 &&
-        newArray[currentColumn].length < 2
-      ) {
-        currentColumn = 0;
-        return;
-      }
-      if (
-        currentColumn > numberSlides - 1 &&
-        newArray[currentColumn].length < 2
-      ) {
-        return;
-      }
-      currentColumn++;
-    });
-    console.log(newArray);
-    setGames(newArray);
+    const newData:{
+      games:Array<Array<gamesProps>> ,
+      companies:Array<Array<companyProps>>
+    } = {
+      games:[],
+      companies:[]
+    };
+    if(gamesProps){
+      newData.games= ajustItems(gamesProps,2,6);
+    }
+    if(companyProps){
+      newData.companies  = ajustItems(companyProps,2,6);
+
+    }
+    console.log(newData)
+  
+    setData(newData)
   }, []);
 
   return (
@@ -77,17 +85,17 @@ const Home: NextPage = () => {
               },
             }}
           >
-            {games.map((game) => (
+            {data.games.map((game) => (
               <div className="item-container" key={game[0].id}>
                 <Link href={`/games/${game[0].id}`}>
                   <div className="item">
-                    <img alt={game[0].alt} src={game[0].imageURL} />
+                    <img alt={game[0].alt} src={game[0].file_url} />
                   </div>
                 </Link>
                 {game[1] && (
                   <Link href={`/games/${game[0].id}`}>
                     <div className="item">
-                      <img alt={game[1].alt} src={game[1].imageURL} />
+                      <img alt={game[1].alt} src={game[1].file_url} />
                     </div>
                   </Link>
                 )}
@@ -113,39 +121,65 @@ const Home: NextPage = () => {
               },
             }}
           >
-            <div className="item-container">
-              <div className="item" />
-              <div className="item" />
-            </div>
-            <div className="item-container">
-              <div className="item" />
-              <div className="item" />
-            </div>
-            <div className="item-container">
-              <div className="item" />
-              <div className="item" />
-            </div>
-            <div className="item-container">
-              <div className="item" />
-              <div className="item" />
-            </div>
-            <div className="item-container">
-              <div className="item" />
-              <div className="item" />
-            </div>
-            <div className="item-container">
-              <div className="item" />
-              <div className="item" />
-            </div>
-            <div className="item-container">
-              <div className="item" />
-              <div className="item" />
-            </div>
+            {data.companies.map((company) => (
+              <div className="item-container" key={company[0].id}>
+                <Link href={`/company/${company[0].id}`}>
+                  <div className="item">
+                    <img alt={company[0].alt} src={company[0].file_url} />
+                  </div>
+                </Link>
+                {company[1] && (
+                  <Link href={`/company/${company[0].id}`}>
+                    <div className="item">
+                      <img alt={company[1].alt} src={company[1].file_url} />
+                    </div>
+                  </Link>
+                )}
+              </div>
+            ))}
           </Carrousel>
         </ContainerType>
       </ContainerMain>
     </Main>
   );
+};
+
+Home.getInitialProps = async () => {
+  let newGames:Array<gamesProps> =[] 
+  let newCompanies:Array<companyProps> =[] 
+  try{
+    console.log('props');
+    const games = await api.get<Array<gamesProps>>('game');
+    console.log(games);
+    newGames = games.data.map(game => ({
+      ...game,
+      file_url:`${process.env.REACT_APP_URL}/${game.file_url}`
+    }))
+  
+  }catch{
+    return {
+      
+    }
+  }
+
+  try{
+    console.log('props');
+    const companies = await api.get<Array<companyProps>>('company');
+    console.log(companies);
+    newCompanies = companies.data.map(company => ({
+      ...company,
+      file_url:`${process.env.REACT_APP_URL}/${company.file_url}`
+    }))
+  
+    return {
+      gamesProps:newGames, 
+      companyProps:newCompanies
+    };
+  }catch{
+    return {
+      
+    }
+  }
 };
 
 export default Home;
