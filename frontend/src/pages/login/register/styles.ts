@@ -23,6 +23,7 @@ export default styled.div`
     font-size: 2.25rem;
     color: #eadeda;
     margin-left: 2rem;
+    margin-bottom: 1rem;
   }
 
   .button {
