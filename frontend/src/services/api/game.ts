@@ -7,7 +7,15 @@ interface gamesProps {
   file_url: string;
 }
 
-interface gameProp extends gamesProps {}
+interface gameProp extends gamesProps {
+  company: {
+    id: number;
+    name: string;
+    description: string;
+    file_url: string;
+  };
+  reviewMed: number;
+}
 
 export const findAllGames = () => api.get<Array<gamesProps>>('game');
 

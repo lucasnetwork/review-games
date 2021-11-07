@@ -28,6 +28,45 @@ interface companyProps {
   alt: string;
 }
 
+export const getStaticProps:GetStaticProps = async () => {
+  let newGames:Array<gamesProps> =[] 
+  let newCompanies:Array<companyProps> =[] 
+  try{
+    const games = await findAllGames();
+    newGames = games.data.map(game => ({
+      ...game,
+      file_url:`${process.env.REACT_APP_URL}/${game.file_url}`
+    }))
+  
+  }catch(e){
+    console.log(e)
+    return {
+      props:{}
+    }
+  }
+
+  try{
+    const companies = await findAllCompanies();
+    newCompanies = companies.data.map(company => ({
+      ...company,
+      file_url:`${process.env.REACT_APP_URL}/${company.file_url}`
+    }))
+  
+    return {
+      props:{
+      gamesProps:newGames, 
+      companyProps:newCompanies
+      }
+    };
+  }catch{
+    return {
+      props:{
+        gamesProps:newGames
+      }
+    }
+  }
+};
+
 const Home: NextPage<{
   gamesProps?: Array<gamesProps>;
   companyProps?:Array<companyProps>
@@ -146,43 +185,8 @@ const Home: NextPage<{
   );
 };
 
-export const getStaticProps:GetStaticProps = async () => {
-  let newGames:Array<gamesProps> =[] 
-  let newCompanies:Array<companyProps> =[] 
-  try{
-    const games = await findAllGames();
-    newGames = games.data.map(game => ({
-      ...game,
-      file_url:`${process.env.REACT_APP_URL}/${game.file_url}`
-    }))
-  
-  }catch(e){
-    console.log(e)
-    return {
-      props:{}
-    }
-  }
 
-  try{
-    const companies = await findAllCompanies();
-    newCompanies = companies.data.map(company => ({
-      ...company,
-      file_url:`${process.env.REACT_APP_URL}/${company.file_url}`
-    }))
-  
-    return {
-      props:{
-      gamesProps:newGames, 
-      companyProps:newCompanies
-      }
-    };
-  }catch{
-    return {
-      props:{
-        gamesProps:newGames
-      }
-    }
-  }
-};
+
+
 
 export default Home;
