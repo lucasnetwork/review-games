@@ -11,13 +11,11 @@ export class CompanyService {
   ) {}
 
   findAll(): Promise<Company[]> {
-    return this.companyRepository.find({
-      relations: ['games'],
-    });
+    return this.companyRepository.find();
   }
 
   findOne(id: string): Promise<Company> {
-    return this.companyRepository.findOne(id);
+    return this.companyRepository.findOne(id, { relations: ['games'] });
   }
 
   create(data: Company): Promise<Company> {
