@@ -11,6 +11,8 @@ import { Main, ContainerType } from './styles';
 import api from '../services/api';
 import { ContainerMain } from '../theme/globalstyles';
 import ajustItems from '../utils/ajustItems';
+import { findAllGames } from '../services/api/game';
+import { findAllCompanies } from '../services/api/company';
 
 interface gamesProps {
   id: number;
@@ -148,9 +150,7 @@ Home.getInitialProps = async () => {
   let newGames:Array<gamesProps> =[] 
   let newCompanies:Array<companyProps> =[] 
   try{
-    console.log('props');
-    const games = await api.get<Array<gamesProps>>('game');
-    console.log(games);
+    const games = await findAllGames();
     newGames = games.data.map(game => ({
       ...game,
       file_url:`${process.env.REACT_APP_URL}/${game.file_url}`
@@ -163,9 +163,7 @@ Home.getInitialProps = async () => {
   }
 
   try{
-    console.log('props');
-    const companies = await api.get<Array<companyProps>>('company');
-    console.log(companies);
+    const companies = await findAllCompanies();
     newCompanies = companies.data.map(company => ({
       ...company,
       file_url:`${process.env.REACT_APP_URL}/${company.file_url}`
@@ -177,7 +175,7 @@ Home.getInitialProps = async () => {
     };
   }catch{
     return {
-      
+      gamesProps:newGames
     }
   }
 };
