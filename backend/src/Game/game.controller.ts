@@ -28,9 +28,17 @@ export class GameController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id): Promise<Game> {
+  async findOne(@Param('id') id, @Res() res: Response) {
     const game = await this.gameService.findOne(id);
-    return game;
+    const reviewsReducer = game.reviews.reduce(
+      (current, review) => review.review + current,
+      0,
+    );
+    const { reviews, ...gameResponse } = game;
+    return res.status(HttpStatus.CREATED).json({
+      ...gameResponse,
+      reviewMed: reviewsReducer / game.reviews.length,
+    });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -46,6 +54,7 @@ export class GameController {
         ...data,
         file_url: file.path,
       };
+      console.log(values);
       const response = await this.gameService.create(values);
 
       return res.status(HttpStatus.CREATED).json(response);

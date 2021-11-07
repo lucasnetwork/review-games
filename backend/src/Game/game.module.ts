@@ -15,7 +15,6 @@ import { extname } from 'path';
         destination: './uploads',
         filename(req, file, callback) {
           const extention = extname(file.originalname);
-          console.log(extention);
           const randomName = Array(16)
             .fill(null)
             .map(() => Math.round(Math.random() * 16).toString(16))
