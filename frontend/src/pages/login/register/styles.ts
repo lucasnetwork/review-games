@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default styled.div`
+export default styled.form`
   grid-column-start: 5;
   grid-column-end: 9;
   border: 1px solid #d90368;
@@ -11,6 +11,18 @@ export default styled.div`
   align-self: center;
   display: flex;
   flex-direction: column;
+
+  .switch {
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    p {
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+      color: ${({ theme }) => theme.text.primary};
+    }
+  }
 
   a {
     font-size: 0.6rem;
@@ -24,10 +36,6 @@ export default styled.div`
     color: #eadeda;
     margin-left: 2rem;
     margin-bottom: 1rem;
-  }
-
-  .button {
-    margin-top: 3rem;
   }
 
   .margin {
