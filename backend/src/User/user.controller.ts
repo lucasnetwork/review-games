@@ -5,6 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   Request,
   Res,
   UseGuards,
@@ -20,10 +21,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@Body() data: User, @Res() res: Response) {
+  async create(@Body() data, @Res() res: Response) {
     try {
       const existUser = await this.userService.findOneByEmail(data.email);
-      console.log(existUser);
       if (existUser) {
         return res
           .status(HttpStatus.BAD_REQUEST)
@@ -43,7 +43,6 @@ export class UserController {
       );
       values.password = hashPassword;
       await this.userService.create(data);
-      return res.status(HttpStatus.CREATED).json();
     } catch (e) {
       console.log(e);
       return res
