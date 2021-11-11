@@ -85,10 +85,10 @@ const Company: NextPage<{
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
     const company = await findCompany(params.id);
-    company.data.file_url = `${process.env.REACT_APP_URL}/${company.data.file_url}`;
+    company.data.file_url = `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/${company.data.file_url}`;
     const newGames = company.data.games.map((game) => ({
       ...game,
-      file_url: `${process.env.REACT_APP_URL}/${game.file_url}`,
+      file_url: `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/${game.file_url}`,
     }));
     company.data.games = newGames;
     return {

@@ -130,8 +130,8 @@ const Game: NextPage<{
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
     const game = await findGame(params.id);
-    game.data.file_url = `${process.env.REACT_APP_URL}/${game.data.file_url}`;
-    game.data.company.file_url = `${process.env.REACT_APP_URL}/${game.data.company.file_url}`;
+    game.data.file_url = `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/${game.data.file_url}`;
+    game.data.company.file_url = `${process.env.NEXT_PUBLIC_ANALYTICS_ID}/${game.data.company.file_url}`;
     console.log(game);
 
     return {

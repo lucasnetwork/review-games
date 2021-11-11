@@ -35,7 +35,7 @@ export const getStaticProps:GetStaticProps = async () => {
     const games = await findAllGames();
     newGames = games.data.map(game => ({
       ...game,
-      file_url:`${process.env.REACT_APP_URL}/${game.file_url}`
+      file_url:`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/${game.file_url}`
     }))
   
   }catch(e){
@@ -49,7 +49,7 @@ export const getStaticProps:GetStaticProps = async () => {
     const companies = await findAllCompanies();
     newCompanies = companies.data.map(company => ({
       ...company,
-      file_url:`${process.env.REACT_APP_URL}/${company.file_url}`
+      file_url:`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/${company.file_url}`
     }))
   
     return {

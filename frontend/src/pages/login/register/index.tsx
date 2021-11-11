@@ -1,11 +1,14 @@
 import { useFormik } from 'formik';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import Container from './styles';
 
 import Button from '../../../components/Form/Button';
 import Input from '../../../components/Form/Input';
 import Switch from '../../../components/Form/Switch';
+import { register as reg } from '../../../services/api/register';
 
 const initialValues = {
   name: '',
@@ -15,10 +18,22 @@ const initialValues = {
 };
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const formik = useFormik({
     initialValues,
-    onSubmit(values) {
-      console.log(values);
+    async onSubmit(values) {
+      if (loading) {
+        return;
+      }
+      setLoading(true);
+      try {
+        await reg(values.name, values.email, values.password);
+        router.replace('/login');
+        setLoading(false);
+      } catch {
+        setLoading(false);
+      }
     },
   });
 

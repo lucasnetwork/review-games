@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default styled.div`
+export default styled.form`
   grid-column-start: 5;
   grid-column-end: 9;
   border: 1px solid #d90368;
