@@ -6,10 +6,11 @@ import { GameService } from './game.service';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Company } from 'src/database/Entities/Company';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Game]),
+    TypeOrmModule.forFeature([Game, Company]),
     MulterModule.register({
       storage: diskStorage({
         destination: './uploads',

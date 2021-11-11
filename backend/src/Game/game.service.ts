@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Company } from 'src/database/Entities/Company';
 import { Game } from 'src/database/Entities/Game';
 import { Repository } from 'typeorm';
 
@@ -8,6 +9,8 @@ export class GameService {
   constructor(
     @InjectRepository(Game)
     private gameRepository: Repository<Game>,
+    @InjectRepository(Company)
+    private companyRepository: Repository<Company>,
   ) {}
 
   findAll(): Promise<Game[]> {
@@ -16,11 +19,24 @@ export class GameService {
 
   findOne(id: string): Promise<Game> {
     return this.gameRepository.findOne(id, {
-      relations: ['company', 'reviews'],
+      relations: ['company', 'review'],
     });
   }
 
-  create(data: Game): Promise<Game> {
+  findCompanyByUserId(id: number): Promise<Company> {
+    return this.companyRepository.findOne(
+      {
+        user: {
+          id,
+        },
+      },
+      {
+        relations: ['user'],
+      },
+    );
+  }
+
+  create(data): Promise<Game> {
     return this.gameRepository.save(data);
   }
 }

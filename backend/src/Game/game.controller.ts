@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
   Request,
   Res,
   UploadedFile,
@@ -48,18 +49,26 @@ export class GameController {
     @Body() data: Game,
     @UploadedFile() file: Express.Multer.File,
     @Res() res: Response,
+    @Req() req,
   ) {
     try {
+      const existCompany = await this.gameService.findCompanyByUserId(
+        req.user.userId,
+      );
+      if (!existCompany) {
+        return res
+          .status(HttpStatus.UNAUTHORIZED)
+          .json({ error: 'Company not exist' });
+      }
       const values = {
         ...data,
         file_url: file.path,
+        company: existCompany.id,
       };
-      console.log(values);
       const response = await this.gameService.create(values);
 
       return res.status(HttpStatus.CREATED).json(response);
     } catch (e) {
-      console.log(e);
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .json({ error: 'server error' });
