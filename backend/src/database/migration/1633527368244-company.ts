@@ -19,6 +19,20 @@ export class company1633027368244 implements MigrationInterface {
             name: 'file_url',
             type: 'varchar',
           },
+          {
+            name: 'userId',
+            type: 'int',
+            isUnique: true,
+          },
+        ],
+
+        foreignKeys: [
+          {
+            referencedTableName: 'users',
+            onDelete: 'ON DELETE',
+            referencedColumnNames: ['id'],
+            columnNames: ['userId'],
+          },
         ],
       }),
     );
