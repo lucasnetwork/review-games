@@ -18,7 +18,18 @@ export class CompanyService {
     return this.companyRepository.findOne(id, { relations: ['games'] });
   }
 
-  create(data: Company): Promise<Company> {
+  findOneByUser(id: number): Promise<Company> {
+    return this.companyRepository.findOne(
+      {
+        user: {
+          id,
+        },
+      },
+      { relations: ['user'] },
+    );
+  }
+
+  create(data): Promise<Company> {
     return this.companyRepository.save(data);
   }
 }

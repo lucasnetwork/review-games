@@ -8,9 +8,12 @@ import {
   HttpStatus,
   UploadedFile,
   UseInterceptors,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Company } from 'src/database/Entities/Company';
 import { CompanyService } from './company.service';
 
@@ -34,29 +37,35 @@ export class CompanyController {
     return res.status(HttpStatus.OK).json(existCompany);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async create(
     @Body() data: Company,
     @UploadedFile() file: Express.Multer.File,
     @Res() res: Response,
+    @Req() req,
   ) {
-    console.log(file.path);
     try {
-      const values = { ...data, file_url: file.path.toString() };
+      const existCompany = await this.companyService.findOneByUser(req.user.id);
+      if (existCompany) {
+        return res
+          .status(HttpStatus.BAD_REQUEST)
+          .json({ error: 'Company not exist' });
+      }
+      const values = {
+        ...data,
+        file_url: file.path.toString(),
+        user: req.user.userId,
+      };
       await this.companyService.create(values);
 
       return res.status(HttpStatus.CREATED).json();
-    } catch {
+    } catch (e) {
+      console.log(e);
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .json({ error: 'server error' });
     }
   }
-
-  // @Post('upload')
-  // @UseInterceptors(FileInterceptor('file'))
-  // async upload(@UploadedFile() file: Express.Multer.File) {
-  //   console.log(file);
-  // }
 }
