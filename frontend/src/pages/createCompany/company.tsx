@@ -16,7 +16,8 @@ import Input from '../../components/Form/Input';
 import Textarea from '../../components/Form/TextArea';
 import { ContainerMain } from '../../theme/globalstyles';
 import Button from '../../components/Form/Button';
-import { createGame } from '../../services/api/game';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const initialValues = {
   image: {
@@ -25,22 +26,26 @@ const initialValues = {
   },
   description: '',
   name: '',
+  edit:false
 };
 
-const CreateGame: NextPage = () => {
+interface createOrEditCompanyProps{
+    company?:{
+        imageUrl:'',
+        description: '',
+        name: '',
+    }
+}
 
+const CreateOrEditCompany: NextPage<createOrEditCompanyProps> = (props) => {
   const formik = useFormik({
     initialValues,
-     async onSubmit(values){
+    onSubmit(values){
       console.log(values)
-      const formData = new FormData()
-      formData.append('name',values.name)
-      formData.append('name',values.description)
-      formData.append('name',values.image.url)
-      await createGame(formData)
-      
     }
   });
+  const router = useRouter()
+  console.log(props)
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -51,6 +56,20 @@ const CreateGame: NextPage = () => {
     })
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+  useEffect(()=>{
+    if(props?.company){
+        formik.setValues({
+            description:props.company.description,
+            edit:true,
+            image:{
+                url:props.company.imageUrl,
+                file:null
+            },
+            name:props.company.name
+        })
+    }
+  },[])
 
   return (
     <Main onSubmit={formik.handleSubmit}>
@@ -93,4 +112,4 @@ const CreateGame: NextPage = () => {
   );
 };
 
-export default CreateGame;
+export default CreateOrEditCompany;
