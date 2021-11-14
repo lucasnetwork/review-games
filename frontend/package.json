@@ -20,6 +20,7 @@
     "react-icons": "^4.3.1",
     "react-star-ratings": "^2.3.0",
     "react-switch": "^6.0.0",
+    "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
