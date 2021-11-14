@@ -8,6 +8,7 @@ import Container from './styles';
 import Button from '../../components/Form/Button';
 import Input from '../../components/Form/Input';
 import { login } from '../../services/api/login';
+import { useContextProvider } from '../../services/Context';
 import { storageItem } from '../../services/storage';
 
 const initialValues = {
@@ -17,21 +18,24 @@ const initialValues = {
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const { updateLogin } = useContextProvider();
   const router = useRouter();
   const formik = useFormik({
     initialValues,
     async onSubmit(values) {
-      console.log(values);
       if (loading) {
         return;
       }
+      console.log(values);
       setLoading(true);
       try {
         const response = await login(values.email, values.password);
-        storageItem('token', response.data.acess_token);
+        storageItem('token', { token: response.data.acess_token });
+        updateLogin();
         router.replace('/');
         setLoading(false);
-      } catch {
+      } catch (e) {
+        console.log(e);
         setLoading(false);
       }
     },

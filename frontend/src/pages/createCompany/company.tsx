@@ -47,7 +47,11 @@ const CreateOrEditCompany: NextPage<createOrEditCompanyProps> = (props) => {
       }
       setLoading(true)
       try{
-         await createCompany(values)
+        const formData = new FormData()
+        formData.append("file",values.image.file)
+        formData.append("description",values.description)
+        formData.append("name",values.name)
+         await createCompany(formData)
         setLoading(false)
       }
       catch{

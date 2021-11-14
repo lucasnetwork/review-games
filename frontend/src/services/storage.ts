@@ -1,11 +1,14 @@
-export const storageItem = (key: string, item: string) => {
+export const storageItem = (key: string, item: any) => {
   const valueString = JSON.stringify(item);
   localStorage.setItem(key, valueString);
 };
 
 export const getItem = (key: string) => {
-  const item = JSON.parse(localStorage.getItem(key) || '');
+  let item = localStorage.getItem(key);
   console.log(item);
+  if (item) {
+    item = JSON.parse(item);
+  }
 
   return item;
 };

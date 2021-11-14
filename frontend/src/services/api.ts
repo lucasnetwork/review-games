@@ -12,10 +12,10 @@ api.interceptors.request.use(async (config) => {
   if (typeof window !== 'undefined') {
     token = getItem('token');
   }
-  if (token) {
+  if (token?.token) {
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token.token}`,
     };
   }
   return config;
