@@ -47,11 +47,13 @@ export class CompanyController {
     @Req() req,
   ) {
     try {
-      const existCompany = await this.companyService.findOneByUser(req.user.id);
+      const existCompany = await this.companyService.findOneByUser(
+        req.user.userId,
+      );
       if (existCompany) {
         return res
           .status(HttpStatus.BAD_REQUEST)
-          .json({ error: 'Company not exist' });
+          .json({ error: 'Company already exist' });
       }
       const values = {
         ...data,

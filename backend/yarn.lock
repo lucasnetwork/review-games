@@ -604,6 +604,11 @@
     semver "^7.3.4"
     tar "^6.1.0"
 
+"@nest-module/next@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nest-module/next/-/next-1.0.0.tgz#49a045459e8ba8a886bf68cec8fc0421fd0762c3"
+  integrity sha512-pX/9PwX0qwPTWSRPuEQTQ8xiZAS7kC/ZidCLLHb5UU47znPqNXiKp4vAF5/Ap1VS4ZGouS+Em3mzHNNNgVghNA==
+
 "@nestjs/cli@^8.0.0":
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-8.1.1.tgz#8b0866306ccf66e726523cf7aa1b435e7740fec8"
@@ -845,6 +850,11 @@
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@types/cookiejar/-/cookiejar-2.1.2.tgz#66ad9331f63fe8a3d3d9d8c6e3906dd10f6446e8"
   integrity sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==
+
+"@types/cors@^2.8.12":
+  version "2.8.12"
+  resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.12.tgz#6b2c510a7ad7039e98e7b8d3d6598f4359e5c080"
+  integrity sha512-vt+kDhq/M2ayberEtJcIN/hxXy1Pk+59g2FV/ZQceeaTyCtCucjL2Q7FXlFjtWn4n15KCr1NE2lNNFhp0lEThw==
 
 "@types/dotenv@^8.2.0":
   version "8.2.0"
@@ -2057,7 +2067,7 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-cors@2.8.5:
+cors@2.8.5, cors@^2.8.5:
   version "2.8.5"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
   integrity sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==
@@ -4310,6 +4320,13 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+nest-next@^9.4.0:
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/nest-next/-/nest-next-9.4.0.tgz#a4d5e3c9c25d1a4eb2dd2e6b266c29c6a1bc6fda"
+  integrity sha512-uM11kyNGHjUKJXmQduqljS/NO9cS8JtVQu/21CPbHBpRiL1bgoLmODk253vHKsDFP1/nNrGUJ1lH5XShvFa6rg==
+  dependencies:
+    rxjs "^6.4"
+
 node-addon-api@^3.0.0, node-addon-api@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.2.1.tgz#81325e0a2117789c0128dab65e7e38f07ceba161"
@@ -5042,7 +5059,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@6.6.7, rxjs@^6.6.0, rxjs@^6.6.6:
+rxjs@6.6.7, rxjs@^6.4, rxjs@^6.6.0, rxjs@^6.6.6:
   version "6.6.7"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
   integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
