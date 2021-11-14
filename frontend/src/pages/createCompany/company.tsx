@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useCallback, useState } from 'react';
+import { useCallback, useState,useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import {
@@ -17,7 +17,7 @@ import Textarea from '../../components/Form/TextArea';
 import { ContainerMain } from '../../theme/globalstyles';
 import Button from '../../components/Form/Button';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { createCompany } from '../../services/api/company';
 
 const initialValues = {
   image: {
@@ -38,10 +38,22 @@ interface createOrEditCompanyProps{
 }
 
 const CreateOrEditCompany: NextPage<createOrEditCompanyProps> = (props) => {
+  const [loading,setLoading] = useState(false)
   const formik = useFormik({
     initialValues,
-    onSubmit(values){
-      console.log(values)
+    async onSubmit(values){
+      if(loading){
+        return
+      }
+      setLoading(true)
+      try{
+         await createCompany(values)
+        setLoading(false)
+      }
+      catch{
+        setLoading(false)
+
+      }
     }
   });
   const router = useRouter()
@@ -105,7 +117,7 @@ const CreateOrEditCompany: NextPage<createOrEditCompanyProps> = (props) => {
               name:"description"
             }}
           />
-          <Button type="submit" onClick={()=>formik.handleSubmit()}>Cadastrar</Button>
+          <Button type="submit" onClick={()=>formik.handleSubmit()}>{props.company ? "Editar":"Cadastrar"}</Button>
         </ContainerDescription>
       </ContainerMain>
     </Main>
