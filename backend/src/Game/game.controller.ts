@@ -37,6 +37,7 @@ export class GameController {
       0,
     );
     const { reviews, ...gameResponse } = game;
+    console.log(game);
     return res.status(HttpStatus.CREATED).json({
       ...gameResponse,
       reviewMed: reviewsReducer / game.reviews.length,

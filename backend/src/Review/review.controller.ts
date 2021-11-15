@@ -4,6 +4,7 @@ import {
   Get,
   HttpStatus,
   Post,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -24,18 +25,46 @@ export class ReviewController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() data: Review, @Res() res: Response) {
+  async create(
+    @Body()
+    data: {
+      gameId: number;
+      review: number;
+    },
+    @Res() res: Response,
+    @Req() req,
+  ) {
     try {
-      const existReviewUsertAndGame = await this.reviewService.getByUserAndGame(
-        Number(data.game),
-        Number(data.user),
-      );
-      if (existReviewUsertAndGame) {
+      const existUser = await this.reviewService.verifyUser(req.user.userId);
+
+      if (!existUser) {
         return res
           .status(HttpStatus.BAD_REQUEST)
-          .json({ error: 'review already exist' });
+          .json({ error: 'User not exist' });
       }
-      const response = await this.reviewService.create(data);
+
+      const existGame = await this.reviewService.verifyGame(data.gameId);
+
+      if (!existGame) {
+        return res
+          .status(HttpStatus.BAD_REQUEST)
+          .json({ error: 'Game not exist' });
+      }
+      const existReviewUsertAndGame = await this.reviewService.getByUserAndGame(
+        Number(req.user.userId),
+        Number(data.gameId),
+      );
+      if (existReviewUsertAndGame) {
+        existReviewUsertAndGame.review = data.review;
+
+        const response = await this.reviewService.save(existReviewUsertAndGame);
+        return res.status(HttpStatus.CREATED).json(response);
+      }
+      const response = await this.reviewService.create({
+        game: data.gameId,
+        review: data.review,
+        user: req.user.userId,
+      });
       return res.status(HttpStatus.CREATED).json(response);
     } catch {
       return res
