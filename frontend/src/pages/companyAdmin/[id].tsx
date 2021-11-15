@@ -17,6 +17,7 @@ import {
 
 import Button from '../../components/Form/Button';
 import { findCompany } from '../../services/api/company';
+import { removeGame } from '../../services/api/game';
 import { ContainerMain } from '../../theme/globalstyles';
 
 interface companyProps {
@@ -38,6 +39,15 @@ const CompanyAdmin: NextPage<{
 }> = ({ company }) => {
   const [mouseUp, setMouseUp] = useState(false);
   const router = useRouter();
+
+  async function removeGameFile(id) {
+    try {
+      const response = await removeGame(id);
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <Main>
@@ -97,8 +107,8 @@ const CompanyAdmin: NextPage<{
                   onMouseEnter={() => setMouseUp(true)}
                   onMouseLeave={() => setMouseUp(false)}
                 >
-                  <button type="button">
-                    <BiTrash />
+                  <button type="button" onClick={() => removeGameFile(game.id)}>
+                    <BiTrash size={24} color="#fff" />
                   </button>
                   <Link href={`/games/${game.id}`}>
                     <img alt="32" src={game.file_url} />

@@ -28,16 +28,28 @@ const initialValues = {
 };
 
 const CreateGame: NextPage = () => {
+  const [loading,setLoading] = useState(false)
 
   const formik = useFormik({
     initialValues,
-     async onSubmit(values){
-      console.log(values)
-      const formData = new FormData()
-      formData.append('name',values.name)
-      formData.append('name',values.description)
-      formData.append('name',values.image.url)
-      await createGame(formData)
+     async onSubmit(values,{resetForm}){
+       if(loading){
+         return
+       }
+       setLoading(true)
+       try{
+         console.log(values)
+         const formData = new FormData()
+         formData.append('name',values.name)
+         formData.append('description',values.description)
+         formData.append('file',values.image.file)
+         await createGame(formData)
+         resetForm()
+         setLoading(false)
+       }catch{
+         setLoading(false)
+         return
+       }
       
     }
   });
@@ -86,7 +98,7 @@ const CreateGame: NextPage = () => {
               name:"description"
             }}
           />
-          <Button type="submit" onClick={()=>formik.handleSubmit()}>Cadastrar</Button>
+          <Button type="submit" >Cadastrar</Button>
         </ContainerDescription>
       </ContainerMain>
     </Main>

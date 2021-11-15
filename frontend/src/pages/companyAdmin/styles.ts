@@ -115,14 +115,25 @@ export const Item = styled.div<{ mouseUp: boolean }>`
     right: 0.5rem;
     background: rgba(0, 0, 0, 0.5);
     opacity:0;
-    transition opacity 0.2s linear;
-    pointer-events:none
+    transition opacity 0.2s linear,filter 0.2s linear;
+    pointer-events:none;
+    border:none;
+    width:2rem;
+    height:2rem;
+    border-radius:100%;
+    cursor:pointer;
+
+    :hover{
+      filter:brightness(50%)
+    }
   }
 
   ${({ mouseUp }) =>
     mouseUp &&
     css`
-      pointer-events: all;
-      opacity: 1;
+      button {
+        pointer-events: all;
+        opacity: 1;
+      }
     `}
 `;
