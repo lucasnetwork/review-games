@@ -13,6 +13,7 @@ import {
 } from './styles';
 
 import { findGame } from '../../services/api/game';
+import { createReview } from '../../services/api/review';
 import { ContainerMain } from '../../theme/globalstyles';
 
 interface gamesProps {
@@ -59,7 +60,14 @@ const Game: NextPage<{
             <Rating
               rating={gameProps.reviewMed || 0}
               starRatedColor={theme.background.secondary}
-              changeRating={() => {}}
+              changeRating={async (value: number) => {
+                try {
+                  const response = await createReview(value, gameProps.id);
+                  console.log(response);
+                } catch (e) {
+                  console.log(e);
+                }
+              }}
               numberOfStars={5}
               name="rating"
             />
@@ -68,59 +76,6 @@ const Game: NextPage<{
         <DescriptionContainer>
           <h2>Descrição</h2>
           <p>{gameProps.description}</p>
-        </DescriptionContainer>
-        <DescriptionContainer>
-          <h2>Comentários</h2>
-          <CommentContainer>
-            <div>
-              <img
-                alt="32"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-              />
-              <h3>Lucas</h3>
-            </div>
-            <p>fasfdsafdasfsdafsd</p>
-          </CommentContainer>
-          <CommentContainer>
-            <div>
-              <img
-                alt="32"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-              />
-              <h3>Lucas</h3>
-            </div>
-            <p>fasfdsafdasfsdafsd</p>
-          </CommentContainer>
-          <CommentContainer>
-            <div>
-              <img
-                alt="32"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-              />
-              <h3>Lucas</h3>
-            </div>
-            <p>fasfdsafdasfsdafsd</p>
-          </CommentContainer>
-          <CommentContainer>
-            <div>
-              <img
-                alt="32"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-              />
-              <h3>Lucas</h3>
-            </div>
-            <p>fasfdsafdasfsdafsd</p>
-          </CommentContainer>
-          <CommentContainer>
-            <div>
-              <img
-                alt="32"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1Dyth-2BFxRq7IAuG0jK0wHaEK%26pid%3DApi&f=1"
-              />
-              <h3>Lucas</h3>
-            </div>
-            <p>fasfdsafdasfsdafsd</p>
-          </CommentContainer>
         </DescriptionContainer>
       </ContainerMain>
     </Main>
