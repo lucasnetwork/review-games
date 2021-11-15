@@ -1,5 +1,14 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Review } from 'src/database/Entities/Review';
 import { ReviewService } from './review.service';
 
@@ -13,6 +22,7 @@ export class ReviewController {
     return reviews;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() data: Review, @Res() res: Response) {
     try {

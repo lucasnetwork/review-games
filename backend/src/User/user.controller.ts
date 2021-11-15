@@ -54,18 +54,21 @@ export class UserController {
   @Get('profile')
   async getProfile(@Request() req, @Res() res: Response) {
     try {
-      const existUser = await this.userService.findOneByEmail(
-        req.user.userName,
-      );
+      const existUser = await this.userService.findOne(req.user.userId);
       if (!existUser) {
         return res
           .status(HttpStatus.NOT_FOUND)
           .json({ error: 'User not exist' });
       }
+      const existCompany = await this.userService.findCompanyByUser(
+        req.user.userId,
+      );
       const user = {
         email: existUser.email,
         name: existUser.name,
         id: existUser.id,
+        existCompany: !!existCompany,
+        idCompany: existCompany.id,
       };
 
       return res.json(user);

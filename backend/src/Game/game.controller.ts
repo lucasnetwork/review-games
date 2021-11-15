@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -52,6 +53,8 @@ export class GameController {
     @Req() req,
   ) {
     try {
+      console.log(data);
+      console.log(file);
       const existCompany = await this.gameService.findCompanyByUserId(
         req.user.userId,
       );
@@ -69,6 +72,45 @@ export class GameController {
 
       return res.status(HttpStatus.CREATED).json(response);
     } catch (e) {
+      console.log(e);
+      return res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json({ error: 'server error' });
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async removeGame(@Param('id') id, @Req() req, @Res() res: Response) {
+    try {
+      const existGame = await this.gameService.findOne(id);
+
+      if (!existGame) {
+        return res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ error: 'Game not exist' });
+      }
+
+      const existCompany = await this.gameService.findCompanyByUserId(
+        req.user.userId,
+      );
+
+      if (!existCompany) {
+        return res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ error: 'Company not exist' });
+      }
+
+      if (existGame.company.id !== existCompany.id) {
+        return res
+          .status(HttpStatus.UNAUTHORIZED)
+          .json({ error: 'Game not exist in company' });
+      }
+      await this.gameService.removeFile(id);
+
+      return res.status(HttpStatus.OK).json({});
+    } catch (e) {
+      console.log(e);
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .json({ error: 'server error' });

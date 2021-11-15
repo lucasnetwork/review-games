@@ -19,8 +19,12 @@ export class GameService {
 
   findOne(id: string): Promise<Game> {
     return this.gameRepository.findOne(id, {
-      relations: ['company', 'review'],
+      relations: ['company', 'reviews'],
     });
+  }
+
+  removeFile(id: number) {
+    return this.gameRepository.delete({ id });
   }
 
   findCompanyByUserId(id: number): Promise<Company> {
