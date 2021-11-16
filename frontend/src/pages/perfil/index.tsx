@@ -6,6 +6,7 @@ import { Main, ImageContainer, ContainerDescription } from './styles';
 
 import Button from '../../components/Form/Button';
 import Input from '../../components/Form/Input';
+import Header from '../../components/Header';
 import useDimension from '../../hooks/useDimension';
 import { getProfile } from '../../services/api/user';
 import { ContainerMain } from '../../theme/globalstyles';
@@ -85,6 +86,15 @@ const Perfil = () => {
         </ContainerDescription>
       </ContainerMain>
     </Main>
+  );
+};
+
+Perfil.getLayout = function getLayout(page) {
+  return (
+    <>
+      <Header />
+      {page}
+    </>
   );
 };
 

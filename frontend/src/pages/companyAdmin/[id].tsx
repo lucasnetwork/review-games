@@ -16,6 +16,7 @@ import {
 } from './styles';
 
 import Button from '../../components/Form/Button';
+import Header from '../../components/Header';
 import { findCompany } from '../../services/api/company';
 import { removeGame } from '../../services/api/game';
 import { ContainerMain } from '../../theme/globalstyles';
@@ -120,6 +121,15 @@ const CompanyAdmin: NextPage<{
         </DescriptionContainer>
       </ContainerMain>
     </Main>
+  );
+};
+
+CompanyAdmin.getLayout = function getLayout(page) {
+  return (
+    <>
+      <Header />
+      {page}
+    </>
   );
 };
 

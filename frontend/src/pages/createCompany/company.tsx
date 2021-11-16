@@ -18,6 +18,7 @@ import { ContainerMain } from '../../theme/globalstyles';
 import Button from '../../components/Form/Button';
 import { useRouter } from 'next/router';
 import { createCompany } from '../../services/api/company';
+import Header from '../../components/Header';
 
 const initialValues = {
   image: {
@@ -125,6 +126,15 @@ const CreateOrEditCompany: NextPage<createOrEditCompanyProps> = (props) => {
         </ContainerDescription>
       </ContainerMain>
     </Main>
+  );
+};
+
+CreateOrEditCompany.getLayout = function getLayout(page) {
+  return (
+    <>
+      <Header />
+      {page}
+    </>
   );
 };
 

@@ -12,6 +12,7 @@ import {
   CommentContainer,
 } from './styles';
 
+import Header from '../../components/Header';
 import { findGame } from '../../services/api/game';
 import { createReview } from '../../services/api/review';
 import { ContainerMain } from '../../theme/globalstyles';
@@ -79,6 +80,15 @@ const Game: NextPage<{
         </DescriptionContainer>
       </ContainerMain>
     </Main>
+  );
+};
+
+Game.getLayout = function getLayout(page) {
+  return (
+    <>
+      <Header />
+      {page}
+    </>
   );
 };
 

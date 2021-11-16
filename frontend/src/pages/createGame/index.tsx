@@ -17,6 +17,7 @@ import Textarea from '../../components/Form/TextArea';
 import { ContainerMain } from '../../theme/globalstyles';
 import Button from '../../components/Form/Button';
 import { createGame } from '../../services/api/game';
+import Header from '../../components/Header';
 
 const initialValues = {
   image: {
@@ -102,6 +103,15 @@ const CreateGame: NextPage = () => {
         </ContainerDescription>
       </ContainerMain>
     </Main>
+  );
+};
+
+CreateGame.getLayout = function getLayout(page) {
+  return (
+    <>
+      <Header />
+      {page}
+    </>
   );
 };
 

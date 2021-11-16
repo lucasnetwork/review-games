@@ -12,6 +12,7 @@ import {
   Item,
 } from './styles';
 
+import Header from '../../components/Header';
 import { findCompany } from '../../services/api/company';
 import { ContainerMain } from '../../theme/globalstyles';
 
@@ -81,6 +82,15 @@ const Company: NextPage<{
     </ContainerMain>
   </Main>
 );
+
+Company.getLayout = function getLayout(page) {
+  return (
+    <>
+      <Header />
+      {page}
+    </>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {

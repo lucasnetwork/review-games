@@ -13,6 +13,7 @@ import { ContainerMain } from '../theme/globalstyles';
 import ajustItems from '../utils/ajustItems';
 import { findAllGames } from '../services/api/game';
 import { findAllCompanies } from '../services/api/company';
+import Header from '../components/Header';
 
 interface gamesProps {
   id: number;
@@ -185,6 +186,14 @@ const Home: NextPage<{
   );
 };
 
+Home.getLayout = function getLayout(page){
+  return (
+    <>
+    <Header/>
+    {page}
+    </>
+  )
+}
 
 
 
