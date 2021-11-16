@@ -52,6 +52,8 @@ export const getStaticProps:GetStaticProps = async () => {
       ...company,
       file_url:`${process.env.NEXT_PUBLIC_ANALYTICS_ID}/${company.file_url}`
     }))
+
+    console.log(newCompanies)
   
     return {
       props:{
@@ -135,7 +137,7 @@ const Home: NextPage<{
                   </div>
                 </Link>
                 {game[1] && (
-                  <Link href={`/games/${game[0].id}`}>
+                  <Link href={`/games/${game[1].id}`}>
                     <div className="item">
                       <img alt={game[1].alt} src={game[1].file_url} />
                     </div>
@@ -171,7 +173,7 @@ const Home: NextPage<{
                   </div>
                 </Link>
                 {company[1] && (
-                  <Link href={`/company/${company[0].id}`}>
+                  <Link href={`/company/${company[1].id}`}>
                     <div className="item">
                       <img alt={company[1].alt} src={company[1].file_url} />
                     </div>
