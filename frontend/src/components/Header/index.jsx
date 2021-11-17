@@ -9,7 +9,11 @@ const Header = () => {
 
   return (
     <Container>
-      <h1>Review Games</h1>
+      <Link href="/" passHref>
+        <a>
+          <h1>Review Games</h1>
+        </a>
+      </Link>
       {login ? (
         <Link href="/perfil">Perfil</Link>
       ) : (
