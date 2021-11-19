@@ -14,7 +14,6 @@ const initialValues = {
   name: '',
   email: '',
   password: '',
-  isCompany: false,
 };
 
 const Register = () => {
@@ -29,9 +28,10 @@ const Register = () => {
       setLoading(true);
       try {
         await reg(values.name, values.email, values.password);
-        router.replace('/login');
+        router.push('/login');
         setLoading(false);
-      } catch {
+      } catch (e) {
+        console.log(e);
         setLoading(false);
       }
     },
@@ -65,16 +65,11 @@ const Register = () => {
           name: 'password',
         }}
       />
-      <div className="switch">
-        <Switch
-          onChange={() =>
-            formik.setFieldValue('isCompany', !formik.values.isCompany)
-          }
-          checked={formik.values.isCompany}
-        />
-        <p>É uma empresa?</p>
-      </div>
-      <Button type="submit" onClick={() => formik.handleSubmit()}>
+      <Button
+        className="button"
+        type="submit"
+        onClick={() => formik.handleSubmit()}
+      >
         Cadastrar
       </Button>
       <Link href="/login">Já Possui cadastro? Clique Aqui</Link>

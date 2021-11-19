@@ -12,6 +12,10 @@ export default styled.form`
   display: flex;
   flex-direction: column;
 
+  .button {
+    margin-top: 1rem;
+  }
+
   .switch {
     display: flex;
     margin-top: 2rem;

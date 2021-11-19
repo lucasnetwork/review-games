@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import CreateOrEditCompany from './company';
 
+import Header from '../../components/Header';
 import { findCompany } from '../../services/api/company';
 
 interface createOrEditCompanyProps {
@@ -14,6 +15,15 @@ interface createOrEditCompanyProps {
 const EditCompany: NextPage<createOrEditCompanyProps> = ({ company }) => (
   <CreateOrEditCompany company={company} />
 );
+
+EditCompany.getLayout = function getLayout(page) {
+  return (
+    <>
+      <Header />
+      {page}
+    </>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (!params?.id) {

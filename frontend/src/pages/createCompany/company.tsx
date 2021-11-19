@@ -129,13 +129,6 @@ const CreateOrEditCompany: NextPage<createOrEditCompanyProps> = (props) => {
   );
 };
 
-CreateOrEditCompany.getLayout = function getLayout(page) {
-  return (
-    <>
-      <Header />
-      {page}
-    </>
-  );
-};
+
 
 export default CreateOrEditCompany;
