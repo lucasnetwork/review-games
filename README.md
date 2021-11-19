@@ -10,11 +10,16 @@ Projeto de estudo que empresas podem se cadastrar e adicionar jogos para mostrar
 
 
 # Pages
+* Home
+![](.Github/imgs/home.png)
 * Login
 ![](.Github/imgs/login.png)
 * Register
+![](.Github/imgs/register.png)
 * Game
+![](.Github/imgs/game.png)
 * Company
+![](.Github/imgs/company.png)
 * CreateGame
 * CreateCompany
 * Perfil
